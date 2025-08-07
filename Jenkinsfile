@@ -1,23 +1,32 @@
 pipeline {
     agent any
     stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/rsssharma224/Hello-World.git', branch: 'master'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                bat 'echo Simulating build step'
+                echo 'Simulating build...'
+                // Real build command goes here if needed
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                bat 'echo Simulating test step'
+                echo 'Simulating tests...'
+                // Simulated or real test command
             }
         }
 
-        stage('List Files') {
+        stage('Deploy to IIS') {
             steps {
-                bat 'dir'
+                echo 'Deploying to IIS site folder...'
+                bat 'del /Q C:\\inetpub\\wwwroot\\MyApp\\*.*'
+                bat 'xcopy /E /Y /I .\\web\\* C:\\inetpub\\wwwroot\\MyApp\\'
+
             }
         }
     }
