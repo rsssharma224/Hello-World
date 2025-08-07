@@ -10,14 +10,12 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Simulating build...'
-                // Real build command goes here if needed
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Simulating tests...'
-                // Simulated or real test command
             }
         }
 
@@ -26,7 +24,7 @@ pipeline {
                 echo 'Deploying to IIS site folder...'
                 bat 'del /Q C:\\inetpub\\wwwroot\\MyApp\\*.*'
                 bat 'xcopy /E /Y /I .\\web\\* C:\\inetpub\\wwwroot\\MyApp\\'
-
+                bat 'powershell Restart-WebSite -Name "jenkins App"'
             }
         }
     }
