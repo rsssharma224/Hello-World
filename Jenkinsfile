@@ -14,7 +14,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo "Deploying site: ${siteFolder}"
-                bat "powershell -Command \"Import-Module WebAdministration; Remove-Item -Recurse -Force C:\\inetpub\\wwwroot\\${siteFolder}\\*; Copy-Item .\\${siteFolder}\\* -Recurse -Destination C:\\inetpub\\wwwroot\\${siteFolder}; Restart-WebItem 'IIS:\\Sites\\${siteFolder}'\""
+                powershell -Command "Import-Module WebAdministration;
+Remove-Item -Recurse -Force 'C:\\inetpub\\wwwroot\\web\\*' -ErrorAction SilentlyContinue;
+Copy-Item -Path '.\\web\\*' -Destination 'C:\\inetpub\\wwwroot\\web\\' -Recurse -Force;
+Restart-WebItem 'IIS:\\Sites\\jenkins App'"
             }
         }
     }
