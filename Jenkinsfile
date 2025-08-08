@@ -24,11 +24,7 @@ pipeline {
             steps {
                 echo 'Deploying to IIS site: jenkins App'
                 bat '''
-                    powershell -NoProfile -ExecutionPolicy Bypass -Command ^
-                    "Import-Module WebAdministration; ^
-                    Remove-Item -Recurse -Force 'C:\\inetpub\\wwwroot\\MyApp\\*' -ErrorAction SilentlyContinue; ^
-                    Copy-Item -Path '.\\web\\*' -Destination 'C:\\inetpub\\wwwroot\\MyApp\\' -Recurse -Force; ^
-                    Restart-WebItem 'IIS:\\Sites\\jenkins App'"
+                    powershell -NoProfile -ExecutionPolicy Bypass -Command "Import-Module WebAdministration; Remove-Item -Recurse -Force 'C:\\inetpub\\wwwroot\\MyApp\\*' -ErrorAction SilentlyContinue; Copy-Item -Path '.\\web\\*' -Destination 'C:\\inetpub\\wwwroot\\MyApp\\' -Recurse -Force; Restart-WebItem 'IIS:\\Sites\\jenkins App'"
                 '''
             }
         }
